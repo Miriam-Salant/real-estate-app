@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>דירות של המוכר</title>
+    <link rel="stylesheet" href="{% static 'sellerApartments.css' %}">
+</head>
+<body>
+{% include 'layot.html' %}
+<h1>הדירות שלי</h1>
+
+{% if apartments_with_messages %}
+{% for data in apartments_with_messages %}
+<div>
+    <h2>{{ data.apartment.city }} - {{ data.apartment.neighborhood }}</h2>
+    <p><strong>רחוב:</strong> {{ data.apartment.street }}</p>
+    <p><strong>מחיר:</strong> {{ data.apartment.price }} ש"ח</p>
+    <p><strong>מספר חדרים:</strong> {{ data.apartment.rooms }}</p>
+    <p><strong>קומה:</strong> {{ data.apartment.floor }}</p>
+    <p><strong>תיאור:</strong> {{ data.apartment.description }}</p>
+
+    <h3>פניות לדירה זו</h3>
+    {% if data.messages %}
+    {% for message in data.messages %}
+    <div class="message">
+        <p><strong>שולח:</strong> {{ message.sender.username }}</p>
+        <p><strong>הודעה:</strong> {{ message.message }}</p>
+        <p><strong>תאריך שליחה:</strong> {{ message.date_sent }}</p>
+        <hr>
+        {% if data.apartment.isSold %}
+        <p><strong>הדירה נמכרה!</strong></p>
+<!--        <p><strong>נמכרה ל:</strong> {{ data.apartment.sold_to }}</p>-->
+        {% if data.apartment.commission %}
+        <p><strong>העמלה:</strong> {{ data.apartment.commission }} ש"ח</p>
+        {% endif %}
+        {% else %}
+        <form method="POST" action="{% url 'sell_apartment' apartmentId=data.apartment.id %}">
+            {% csrf_token %}
+            <button type="submit">מכירה</button>
+        </form>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>אין פניות לדירה זו.</p>
+    {% endif %}
+</div>
+{% endfor %}
+{% else %}
+<p>אין דירות למכירה כרגע.</p>
+{% endif %}
+</body>
+</html>

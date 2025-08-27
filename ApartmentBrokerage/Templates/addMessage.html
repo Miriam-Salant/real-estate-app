@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>פניה למוכר</title>
+    <link rel="stylesheet" href="{% static 'addMessage.css' %}">
+</head>
+<body>
+{% include 'layot.html' %}
+<form method="POST" action="{% url 'add_message' apartment.id %}">
+    {% csrf_token %}
+    <input type="hidden" name="apartment_id" value="{{ apartment.id }}">
+    <div class="form-group">
+        <label for="message">הודעה:</label>
+        <textarea name="message" id="message" class="form-control" rows="4" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">שלח</button>
+</form>
+
+</body>
+</html>

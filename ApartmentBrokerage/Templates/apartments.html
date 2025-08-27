@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דירות למכירה</title>
+    <link rel="stylesheet" href="{% static 'apartments.css' %}">
+</head>
+<body>
+{% include 'layot.html' %}
+<h1>דירות למכירה</h1>
+<form class="search" method="get">
+    <label for="city">עיר:</label>
+    <input type="text" name="city" id="city" value="{{ request.GET.city }}"><br/>
+
+    <label for="rooms">מספר חדרים:</label>
+    <input type="number" name="rooms" id="rooms" value="{{ request.GET.rooms }}">
+
+    <button type="submit">חפש</button>
+</form>
+<div>
+    {% for apartment in apartments %}
+    <div class="apartment">
+        <h2>{{ apartment.city }} - {{ apartment.neighborhood }}</h2>
+        <p>רחוב: {{ apartment.street }}</p>
+        <p>מחיר: {{ apartment.price }} ש"ח</p>
+        <p>מספר חדרים: {{ apartment.rooms }}</p>
+        <p>קומה: {{ apartment.floor }}</p>
+        <p>{{ apartment.description }}</p>
+        <p>
+            {% if apartment.owner %}
+            מוכר: {{ apartment.owner }}
+            {% else %}
+            מתווך: {{ apartment.broker }}
+            {% endif %}
+        </p>
+
+        <!-- הצגת התמונות של הדירה -->
+        <div class="apartment-images">
+            {% for image in apartment.apartmentimage_set.all %}
+                <img src="{{ image.image.url }}" alt="תמונה של דירה" class="apartment-image">
+            {% empty %}
+                <p>אין תמונות זמינות לדירה זו.</p>
+            {% endfor %}
+        </div>
+
+        <hr>
+        <form action="{% url 'add_message' apartment.id %}" method="get">
+            <button type="submit" class="btn">✉ שלח פנייה למוכר</button>
+        </form>
+    </div>
+    {% empty %}
+    <p>אין דירות זמינות כרגע.</p>
+    {% endfor %}
+</div>
+</body>
+</html>

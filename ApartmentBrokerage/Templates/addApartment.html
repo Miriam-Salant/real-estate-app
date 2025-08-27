@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>הוספת דירה</title>
+    <link rel="stylesheet" href="{% static 'addApartment.css' %}">
+</head>
+<body>
+{% include 'layot.html' %}
+    <h2>הוספת דירה חדשה</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <label for="images">הוסף תמונות:</label>
+        <input type="file" name="image" id="images" multiple>
+
+        <button type="submit">שמור דירה</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'layot.css' %}">
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="{% url 'register' %}">register</a></li>
+        <li><a href="{% url 'login' %}">login</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'apartments' %}">apartments</a></li>
+        {% endif %}
+
+        {% if user.seller != None %}
+        <li><a href="{% url 'seller_appartments' %}">seller apartments</a></li>
+        <li><a href="{% url 'add_apartment' %}">add apartment</a></li>
+        {% endif %}
+    </ul>
+</nav>
+</body>
+</html>
