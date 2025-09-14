@@ -45,21 +45,12 @@ The system allows users to register as buyers or sellers, publish properties for
    ```bash
    git clone https://github.com/USERNAME/real-estate-app.git
 Create a virtual environment and install dependencies:
-
-bash
-Copy code
 python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 Run migrations:
-
-bash
-Copy code
 python manage.py migrate
 Start the development server:
-
-bash
-Copy code
 python manage.py runserver
 Open in browser: http://127.0.0.1:8000/
