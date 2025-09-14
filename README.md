@@ -39,18 +39,33 @@ The system allows users to register as buyers or sellers, publish properties for
 
 ---
 
+
 📝 **Installation & Setup**  
 
 1. Clone the repository:  
-   ```bash
-   git clone https://github.com/USERNAME/real-estate-app.git
-Create a virtual environment and install dependencies:
+```bash
+git clone https://github.com/USERNAME/real-estate-app.git
+```
+
+2. Create a virtual environment and install dependencies:  
+```bash
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
+# Linux/Mac
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
 pip install -r requirements.txt
-Run migrations:
+```
+
+3. Run migrations:  
+```bash
 python manage.py migrate
-Start the development server:
+```
+
+4. Start the development server:  
+```bash
 python manage.py runserver
-Open in browser: http://127.0.0.1:8000/
+```
+
+5. Open in browser: http://127.0.0.1:8000
+
